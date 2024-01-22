@@ -14,7 +14,7 @@ export class UpdateUserDTO {
   }
 }
 
-type userDTO = {
+export type userDTO = {
   name?: string;
   email?: string;
   password?: string;

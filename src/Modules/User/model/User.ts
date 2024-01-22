@@ -19,7 +19,7 @@ const userSchema = new Schema({
     },
     profilePicture: {
         type: String,
-        
+        default: ''        
     },
     products:[{
         type: Types.ObjectId,

@@ -3,7 +3,7 @@ import { UpdateUserDTO, userDTO } from "../../model/dto/User-dto";
 
 
 
-export interface IUserRepositoryInterface {
+export interface IUserServiceInterface {
     getByEmail(email: string): Promise<User  | null> 
     getById (id: string):Promise<User | null>
     create (userData: userDTO):Promise<User | null>
