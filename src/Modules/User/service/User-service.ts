@@ -3,6 +3,7 @@ import { UpdateUserDTO, userDTO } from "../model/dto/User-dto";
 import { IUserRepositoryInterface } from "../repository/interface/User-repository-interface";
 import { IUserServiceInterface } from "./interface/User-service-interface";
 import { User } from "../model/User";
+import bcrypt from 'bcrypt'
 
 export class UserService implements IUserServiceInterface {
   constructor(private userRepository: IUserRepositoryInterface) {}
@@ -27,15 +28,18 @@ export class UserService implements IUserServiceInterface {
     const userAlreadyExist = await this.userRepository.getByEmail(
       email as string
     );
+    
     if (userAlreadyExist) throw new Error("User already exist");
 
+    // Criptografar a senha antes de armazenar no banco de dados
+    userData.password = await bcrypt.hash(userData.password as string, 10)
     const newUser = await this.userRepository.create(userData);
     if (!newUser) {
       throw new Error("User not created");
     }
     return newUser;
   }
-  async addProducts(idUser: string, idProducts: string) {
+  async addProducts(idUser: string, idProducts: string):Promise<User> {
 
     const userId = await this.getById(idUser);
     if (!userId) throw new Error("error: invalid id");
