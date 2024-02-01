@@ -9,7 +9,7 @@ export class AuthMiddleware {
         if(!headers.authorization){
             return res.status(401).json({message: "Unauthorized"}) 
         }
-        const [,token] = headers.authorization.split('')
+        const [token] = headers.authorization.split('')
         try {
             jwt.verify(token, process.env.JWT_SECRET_KEY as string)
         } catch (error:any) {

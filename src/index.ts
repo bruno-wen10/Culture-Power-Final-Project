@@ -14,7 +14,7 @@ const app = express()
 
 app.use(express.json())
 
-app.use(AuthMiddleware.handler)
+
 app.use(userRouterAuthLogin)
 app.use(userRoutes)
 

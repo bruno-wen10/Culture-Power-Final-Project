@@ -9,6 +9,7 @@ export class UserService implements IUserServiceInterface {
   constructor(private userRepository: IUserRepositoryInterface) {}
 
   async getByEmail(email: string): Promise<User | null> {
+    console.log(`Buscando usuário por e-mail: ${email}`);
     const userEmail = await this.userRepository.getByEmail(email);
 
     if (!userEmail) throw new Error("Email not found");
@@ -33,6 +34,7 @@ export class UserService implements IUserServiceInterface {
 
     // Criptografar a senha antes de armazenar no banco de dados
     userData.password = await bcrypt.hash(userData.password as string, 10)
+    
     const newUser = await this.userRepository.create(userData);
     if (!newUser) {
       throw new Error("User not created");
@@ -54,6 +56,8 @@ export class UserService implements IUserServiceInterface {
     const user = await this.getById(id);
     if (!user) throw new Error("error: invalid id");
 
+    // Criptografar a senha antes de armazenar no banco de dados
+    newUser.password = await bcrypt.hash(newUser.password as string, 10)
     const updatedUser = await this.userRepository.updateUser(id, newUser);
     if (!updatedUser) {
       throw new Error("error: cant update team");

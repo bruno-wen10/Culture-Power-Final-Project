@@ -1,39 +1,46 @@
 import { InferSchemaType, Model, Schema, Types, model } from "mongoose";
 
-
-
-const userSchema = new Schema({
+const userSchema = new Schema(
+  {
     name: {
-        type: String,
-        required: true
-    },   
-    email:{
-        type: String,
-        required: true,
-        unique: true
+      type: String,
+      required: true,
     },
-    password:{
-        type:String,
-        required: true,
-        minLength: 6
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      minLength: 6,
     },
     profilePicture: {
-        type: String,
-        default: ''        
+      type: String,
+      default: "",
     },
-    products:[{
+
+    /* jewelsAmount: {
+      power: 0,
+      mind: 0,
+      space: 0,
+    }, */ 
+
+    products: [
+      {
         type: Types.ObjectId,
-        ref: 'Product'
-    }],
+        ref: "Product",
+      },
+    ],
     deletedAt: {
-        type: Date,
-        default: null
+      type: Date,
+      default: null,
     },
-   
+  },
+  { timestamps: true }
+);
 
+export type User = InferSchemaType<typeof userSchema>;
 
-},  {timestamps:true})
-
-export type User = InferSchemaType<typeof userSchema>
-
-export const UserModel: Model<User> = model('User', userSchema)
+export const UserModel: Model<User> = model("User", userSchema);

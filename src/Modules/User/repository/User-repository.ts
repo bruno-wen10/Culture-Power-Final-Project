@@ -7,12 +7,13 @@ export class UserRepository implements IUserRepositoryInterface {
   constructor(private userModel: Model<User>) {}
 
   async getByEmail(email: string): Promise<User | null> {
+   
     const userEmail = await this.userModel
       .findOne({
         email: email,
         deletedAt: null,
       })
-      .populate("products");
+      
 
     return userEmail;
   }

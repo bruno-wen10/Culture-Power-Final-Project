@@ -2,20 +2,22 @@ import { Request, Response } from "express";
 import { IUserServiceInterface } from "../service/interface/User-service-interface";
 import { IUserController } from "./interface/User-controller-interface";
 import { authBodyValidatorYup } from "../../Auth-login/utils/Auth-body-validator-YUP";
+import { uploudPicture } from "../Middleware/pictureProfile-uploud-middleware";
 
 export class UserController implements IUserController {
   constructor(private service: IUserServiceInterface) {}
   async getByEmail(req: Request, res: Response): Promise<void> {
     try {
-      const { email } = req.params;
+      const { email } = req.query;
       const result = await this.service.getByEmail(email as string);
       res.status(201).json(result);
     } catch (error: any) {
-      res.status(500).json({ message: error.message });
+      res.status(500).json(error);
     }
   }
 
   async getById(req: Request, res: Response): Promise<void> {
+    console.log("hello")
     try {
       const { id } = req.params;
       const result = await this.service.getById(id as string);
@@ -27,11 +29,11 @@ export class UserController implements IUserController {
   async create(req: Request, res: Response): Promise<void> {
 
     try {
-      const { body } = req;
+      const { body, file } = req;
       console.log(body)
       await authBodyValidatorYup.validate(body, {abortEarly: false})
-      const result = await this.service.create(body);
-      res.status(201).json(result);
+      const result = await this.service.create(body, );
+      res.status(201).json({ message: 'User created successfully', user: body });
     } catch (error: any) {
       res.status(500).json(error);
     }

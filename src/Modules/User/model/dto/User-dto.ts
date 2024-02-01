@@ -3,6 +3,7 @@ export class UpdateUserDTO {
   email?: string;
   password?: string;
   profilePicture?: string;
+  jewelsAmount?: { power: number; mind: number; space: number };
   products?: string[];
 
   constructor(userData?: userDTO) {
@@ -10,6 +11,7 @@ export class UpdateUserDTO {
     this.email = userData?.email;
     this.password = userData?.password;
     this.profilePicture = userData?.profilePicture;
+    this.jewelsAmount = userData?.jewelsAmount;
     this.products = userData?.products;
   }
 }
@@ -19,5 +21,6 @@ export type userDTO = {
   email?: string;
   password?: string;
   profilePicture?: string;
+  jewelsAmount?: { power: number; mind: number; space: number };
   products?: string[];
 };
