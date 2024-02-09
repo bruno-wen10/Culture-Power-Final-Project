@@ -10,4 +10,4 @@ const configPicture = diskStorage({
     },
 })
 
-export const  uploudPicture: Multer = multer({storage: configPicture})
+export const  uploudPictureProfile: Multer = multer({storage: configPicture})

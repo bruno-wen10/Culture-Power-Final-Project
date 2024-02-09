@@ -1,5 +1,6 @@
 import { InferSchemaType, Model, Schema, Types, model } from "mongoose";
 
+
 const userSchema = new Schema(
   {
     name: {
@@ -16,16 +17,21 @@ const userSchema = new Schema(
       required: true,
       minLength: 6,
     },
+    role:{
+      type: String,
+      enum: ['client', 'admin'],
+      default: 'client',      
+      required: true
+    },
     profilePicture: {
       type: String,
       default: "",
     },
 
-    /* jewelsAmount: {
-      power: 0,
-      mind: 0,
-      space: 0,
-    }, */ 
+    jewelsAmount:{
+      type: Number,
+      default: 0
+    }, 
 
     products: [
       {

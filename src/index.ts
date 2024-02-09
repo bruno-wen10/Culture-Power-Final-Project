@@ -3,7 +3,8 @@ import dotenv from 'dotenv'
 import { MongooseConfig } from './database/Mongo-config'
 import { userRoutes } from './Modules/User/routes/User-routes'
 import { userRouterAuthLogin } from './Modules/Auth-login/routes/Auth-login-routes'
-import { AuthMiddleware } from './Middlewares/Auth-login-middleware'
+import { productsRouter } from './Modules/Product/routes/Products-routes'
+//import { AuthRoutePrivateMiddleware } from './Middlewares/Auth-login-middleware'
 
 
 
@@ -14,7 +15,7 @@ const app = express()
 
 app.use(express.json())
 
-
+app.use(productsRouter)
 app.use(userRouterAuthLogin)
 app.use(userRoutes)
 

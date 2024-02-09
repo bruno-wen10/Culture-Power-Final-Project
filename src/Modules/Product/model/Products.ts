@@ -1,4 +1,4 @@
-import { InferSchemaType, Schema, model } from "mongoose";
+import { InferSchemaType, Schema, Types, model } from "mongoose";
 
 export const ProductsSchema = new Schema({
   name: {
@@ -18,9 +18,10 @@ export const ProductsSchema = new Schema({
     type: String,
     required: true,
   },
-  image: {
+  productPicture: {
     type: String,
-    required: true,
+    default: "",
+    
   },
   deletedAt: {
     type: Date,
