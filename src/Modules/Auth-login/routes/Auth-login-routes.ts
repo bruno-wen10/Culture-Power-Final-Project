@@ -11,4 +11,4 @@ userRouterAuthLogin.post('/login', AuthLogin.login.bind(AuthLogin))
 
 //Visualizar Usuário Logado (ROTA PRIVADA)
     //Retornar os dados do usuário logado
-userRouterAuthLogin.get('/me', /* Rota Privada ADMIN */ AuthRoutePrivateMiddleware.handle.bind(AuthRoutePrivateMiddleware) ,AuthLogin.getByUserLogged.bind(AuthLogin))
+userRouterAuthLogin.get('/me', /* Rota Privada */ AuthRoutePrivateMiddleware.handle.bind(AuthRoutePrivateMiddleware) ,AuthLogin.getByUserLogged.bind(AuthLogin))

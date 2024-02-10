@@ -78,11 +78,12 @@ export class UserController implements IUserController {
 
   async addProducts(req:Request, res:Response): Promise<void>{
     try {
-        const {idUser, idProducts} = req.body
+      const {idUser, idProducts} = req.body
+      console.log("chegou no Controler", req.body)
         const result = await this.service.addProducts(idUser, idProducts)
         res.status(200).json(result)        
     } catch (error: any) {
-        res.status(500).json(error)        
+        res.status(500).json({message: error.message})        
     }
   }
 

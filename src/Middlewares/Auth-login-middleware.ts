@@ -16,7 +16,8 @@ export class AuthRoutePrivateMiddleware {
             jwt.verify(token, process.env.JWT_SECRET_KEY as string) 
              const payload = jwt.decode(token) as any
             if(!payload) throw new Error("Invalid token")
-            req.body = {id: payload._doc._id}
+            //req.body = {id: payload._doc._id}
+            //req.body = [{id: payload._doc._id}, {...req.body}]
             /* return res.json({payload}) */          
         } catch (erro: any) {
             return res.status(401).json({message: "Invalid token"})

@@ -3,6 +3,7 @@ import { authBodyValidatorYup } from "../utils/Auth-body-validator-YUP";
 import { IAuthServiceInterface } from "../service/interface/Auth-service-interface";
 import { IAuthControllerInterface } from "./interface/Auth-login-controller-interface";
 import { User } from "../../User/model/User";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 
 
@@ -22,10 +23,29 @@ export class AuthController implements IAuthControllerInterface {
     }
 
     async getByUserLogged (req:Request, res:Response): Promise<void>{
+
+        function getUserIdFromToken(req: Request){
+
+            if (req.headers.authorization) {
+                const token = req.headers.authorization.split(' ')[1]; 
+                const payload = jwt.decode(token) as any
+               if(!payload) throw new Error("Invalid token")
+                return req.body = {id: payload._doc._id}
+            } else {
+                
+                throw new Error('Authorization header not found');
+            }
+        }
+
+       
         try {
             console.log(req)
-            const {id} = req.body
-            const result = await this.authService.getByUserLogged(id)
+            
+            const idUser = getUserIdFromToken(req)
+            console.log(idUser)
+            const userId: string = idUser.id 
+
+            const result = await this.authService.getByUserLogged(userId)
 
             res.status(200).json(result)
 

@@ -18,6 +18,12 @@ export class ProductRepository implements IProductsRepository {
     const createdProduct = await this.productModel.create(product);
     return createdProduct;
   }
+  async decrementProductsAmount(idProduct: string, amount: number):Promise<Product | null>{
+    
+    const product = await this.productModel.findByIdAndUpdate(idProduct, {$inc: {Amount: -amount}}, {new: true})
+
+    return product
+  }
   async update(
     idProduct: string,
     newProduct: Product
