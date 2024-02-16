@@ -70,6 +70,12 @@ describe("User Service", () => {
            // Chama a função sendJewelryToUser do serviço de usuário
           const user = await userService.sendJewelryToUser(idUser, jewel)
 
+          // Verifica se a função findByIdAndUpdate foi chamada 
+          expect(fakeUserModel.findByIdAndUpdate).toHaveBeenCalledWith(idUser, jewel, { new: true });
+
+           // Verifica se o usuário retornado é o usuário atualizado com a jóia
+           expect(user).toEqual(fakeUserAdmin);
+
         })
     })
 
