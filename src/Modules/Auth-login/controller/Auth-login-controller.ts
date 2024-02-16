@@ -35,12 +35,8 @@ export class AuthController implements IAuthControllerInterface {
                 
                 throw new Error('Authorization header not found');
             }
-        }
-
-       
-        try {
-            console.log(req)
-            
+        }       
+        try {            
             const idUser = getUserIdFromToken(req)
             console.log(idUser)
             const userId: string = idUser.id 
