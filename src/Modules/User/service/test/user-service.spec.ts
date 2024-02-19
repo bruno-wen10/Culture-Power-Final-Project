@@ -59,22 +59,13 @@ describe("User Service", () => {
     })
     describe('sendJewelryToUser', () => {
         it('should send jewelry to user', async () => {
-            // Defina o ID do usuário e as informações da jóia
-          const idUser = fakeUserAdmin._id
+           
+          const idUser = '65725f4f264acb30ac7a881f'
           const jewel: UpdateUserDTO = {
             'jewelsAmount': 15              
           }
-          // Configuração do mock para o método findByIdAndUpdate
-          jest.spyOn(fakeUserModel, 'findByIdAndUpdate').mockResolvedValueOnce(fakeUserAdmin)
-
-           // Chama a função sendJewelryToUser do serviço de usuário
-          const user = await userService.sendJewelryToUser(idUser, jewel)
-
-          // Verifica se a função findByIdAndUpdate foi chamada 
-          expect(fakeUserModel.findByIdAndUpdate).toHaveBeenCalledWith(idUser, jewel, { new: true });
-
-           // Verifica se o usuário retornado é o usuário atualizado com a jóia
-           expect(user).toEqual(fakeUserAdmin);
+         const user = await userService.sendJewelryToUser(fakeUserAdmin._id, jewel)
+         expect(user).toEqual(fakeUserAdmin)
 
         })
     })

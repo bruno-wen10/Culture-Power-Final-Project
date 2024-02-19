@@ -11,19 +11,20 @@ export class AuthController implements IAuthControllerInterface {
 
     constructor(private authService: IAuthServiceInterface){}
     async login(req:Request, res:Response):Promise<void>{
-        console.log()
+        console.log(req)
+        
         try {
             const {body}= req   
             await authBodyValidatorYup.validate(body, {abortEarly: false})
              const resultToken = await this.authService.login(body)
              res.status(200).json(resultToken)   
         } catch (error:any) {
-            res.status(500).json(error)            
+            res.status(500).json({message: error.message})            
         }
     }
 
     async getByUserLogged (req:Request, res:Response): Promise<void>{
-
+        
         function getUserIdFromToken(req: Request){
 
             if (req.headers.authorization) {
@@ -46,7 +47,8 @@ export class AuthController implements IAuthControllerInterface {
             res.status(200).json(result)
 
         } catch (error:any) {
-            res.status(500).json({message: error.message})           
+            console.log(error)
+            res.status(400).json({message: error.message})           
         }
     }
 }

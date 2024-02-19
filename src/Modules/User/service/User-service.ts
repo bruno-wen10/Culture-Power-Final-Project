@@ -66,9 +66,10 @@ export class UserService implements IUserServiceInterface {
     idUser: string,
     jewel: UpdateUserDTO
   ): Promise<User | null> {
+
     const userId = await this.userRepository.getById(idUser);
-    if (!userId) throw new Error("error: invalid id");
-    console.log(jewel);
+    if (!userId) throw new Error('User not found.');
+    
     const user = await this.userRepository.sendJewelryToUser(idUser, jewel);
     return user;
   }

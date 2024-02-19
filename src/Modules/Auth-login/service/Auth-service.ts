@@ -15,7 +15,7 @@ export class AuthService implements IAuthServiceInterface {
         const user = await this.userRepository.getByEmail(loginData.email)
         if(!user || !user.password) throw new Error('User not found')
 
-        console.log(loginData)
+        
 
         const userPassword = user.password as string
 
@@ -29,7 +29,7 @@ export class AuthService implements IAuthServiceInterface {
         const {password, ...restUser} = user         
 
         const payload = {...restUser}
-        console.log(payload)
+       
         const secretKey = process.env.JWT_SECRET_KEY as string
         const option = {expiresIn: '1d'}
 
